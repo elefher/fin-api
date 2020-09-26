@@ -2,22 +2,60 @@
   "name": "fin-api",
   "version": "0.0.0",
   "private": true,
+  "type": "commonjs",
+  "engines": {
+    "node": ">=8.10.0"
+  },
   "scripts": {
     "start": "nodemon ./bin/www",
     "start-debug": "DEBUG=fin-api:* node ./bin/www",
     "test": "jest",
-    "test:watch": "jest --watch"
+    "test:watch": "jest --watch",
+    "lint": "eslint .",
+    "format": "prettier --write \"**/*.+(js|jsx|json|yml|yaml|css|md)\""
   },
   "dependencies": {
+    "commitizen": "^4.2.1",
     "cookie-parser": "~1.4.4",
+    "cors": "^2.8.5",
     "debug": "~2.6.9",
     "dotenv": "^8.2.0",
+    "eslint-config-prettier": "^6.12.0",
+    "eslint-import-resolver-alias": "^1.1.2",
+    "eslint-plugin-import": "^2.22.0",
     "express": "~4.16.1",
+    "express-session": "^1.17.1",
+    "module-alias": "^2.2.2",
     "mongoose": "^5.10.5",
-    "morgan": "~1.9.1"
+    "morgan": "~1.9.1",
+    "passport": "^0.4.1",
+    "passport-facebook": "^3.0.0",
+    "prettier": "^2.1.2"
   },
   "devDependencies": {
+    "eslint": "^7.9.0",
+    "eslint-plugin-node": "^11.1.0",
+    "eslint-plugin-prettier": "^3.1.4",
+    "husky": "^4.3.0",
     "jest": "^26.4.2",
     "nodemon": "^2.0.4"
+  },
+  "husky": {
+    "hooks": {
+      "prepare-commit-msg": "exec < /dev/tty && git cz --hook || true",
+      "pre-commit": "npm run lint && npm run format"
+    }
+  },
+  "config": {
+    "commitizen": {
+      "path": "./node_modules/cz-conventional-changelog"
+    }
+  },
+  "_moduleAliases": {
+    "@root": ".",
+    "@app": "./src",
+    "@authentication": "./src/authentication",
+    "@db": "./src/db",
+    "@routes": "./src/routes"
   }
 }
