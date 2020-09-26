@@ -1,9 +1,8 @@
 const express = require('express')
 const router = express.Router()
 
-/* GET home page. */
 router.get('/', function (req, res) {
-  res.send({ user: req.user })
+  res.json({ user: req.user })
 })
 
 router.get('/logout', function (req, res) {
