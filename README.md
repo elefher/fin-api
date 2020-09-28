@@ -4,3 +4,9 @@
 
 This API stores, and tracks daily expenses. Its goal is to provide easy, quick,
 reliable, and secure services for web, and mobile applications.
+
+### Contributing
+If you like our work and you are interested in contributing to ProjectFin, read the [contributing section](.github/CONTRIBUTING.md).
+
+### Code Of Conduct
+[Read the code of conduct](.github/CODE_OF_CONDUCT.md)
