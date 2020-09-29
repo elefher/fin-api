@@ -7,7 +7,7 @@ const session = require('express-session')
 require('module-alias/register')
 require('dotenv').config()
 const { getConnection } = require('@db')
-const { facebookInit } = require('@authentication')
+const { facebookInit, googleInit } = require('@authentication')
 
 const db = getConnection()
 db.on('error', console.error.bind(console, 'MongoDB connection error:'))
@@ -29,6 +29,7 @@ app.use(
 app.use(cors())
 
 facebookInit(app)
+googleInit()
 
 app.use('/', indexRouter)
 app.use('/users', usersRouter)
