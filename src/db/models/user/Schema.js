@@ -12,7 +12,7 @@ const UserSchema = new Schema({
     required: true,
     trim: true,
   },
-  facebookId: {
+  providerId: {
     type: String,
     required: true,
     trim: true,
@@ -31,6 +31,9 @@ const UserSchema = new Schema({
     type: String,
     required: true,
     trim: true,
+  },
+  picture: {
+    type: String,
   },
 })
 
