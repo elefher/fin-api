@@ -12,3 +12,16 @@ services:
       - ${DB_VOLUME_PATH}:/data/db
     ports:
       - ${DB_PORT}:27017
+    networks:
+      - backend
+  api:
+    image: fin-api
+    container_name: 'fin-api'
+    build: .
+    networks:
+      - backend
+    ports:
+      - ${PORT}:${PORT}
+networks:
+  backend:
+    driver: bridge
