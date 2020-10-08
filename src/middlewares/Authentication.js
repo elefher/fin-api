@@ -6,9 +6,7 @@ const isLoggedIn = (req, res, next) => {
     return next()
   }
 
-  return next(
-    Boom.unauthorized("Authentication failed"),
-  )
+  return next(Boom.unauthorized('Authentication failed'))
 }
 
 module.exports = {

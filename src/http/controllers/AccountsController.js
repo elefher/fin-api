@@ -13,7 +13,10 @@ const list = async (req, res, next) => {
 }
 
 const view = async (req, res, next) => {
-  const account = await AccountsService.fetchByIdAndUser(req.params.id, req.body.user)
+  const account = await AccountsService.fetchByIdAndUser(
+    req.params.id,
+    req.body.user,
+  )
 
   return Boom.isBoom(account)
     ? next(account)
@@ -45,7 +48,10 @@ const update = async (req, res, next) => {
 }
 
 const remove = async (req, res, next) => {
-  const delAccount = await AccountsService.deleteById(req.params.id, req.body.user)
+  const delAccount = await AccountsService.deleteById(
+    req.params.id,
+    req.body.user,
+  )
 
   return Boom.isBoom(delAccount)
     ? next(delAccount)

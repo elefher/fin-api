@@ -1,7 +1,7 @@
 const Account = require('@db/models/AccountModel')
 const Boom = require('@hapi/boom')
 
-const fetchAllByUser = async (user) => {
+const fetchAllByUser = async user => {
   try {
     return await Account.find({ user: user }).populate('type user')
   } catch (e) {
@@ -11,7 +11,9 @@ const fetchAllByUser = async (user) => {
 
 const fetchByIdAndUser = async (accountId, user) => {
   try {
-    return await Account.find({ _id: accountId, user: user }).populate('type user')
+    return await Account.find({ _id: accountId, user: user }).populate(
+      'type user',
+    )
   } catch (e) {
     return Boom.notFound(e)
   }
@@ -51,4 +53,10 @@ const deleteByIdAndUser = async (accountId, user) => {
   }
 }
 
-module.exports = { fetchAllByUser, fetchByIdAndUser, update, create, deleteByIdAndUser }
+module.exports = {
+  fetchAllByUser,
+  fetchByIdAndUser,
+  update,
+  create,
+  deleteByIdAndUser,
+}
