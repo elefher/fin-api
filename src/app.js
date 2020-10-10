@@ -1,41 +1,52 @@
 const express = require('express')
 const path = require('path')
 const cookieParser = require('cookie-parser')
-const logger = require('morgan')
+const morgan = require('morgan')
 const cors = require('cors')
 const session = require('express-session')
 require('module-alias/register')
 require('dotenv').config()
 const { getConnection } = require('@db')
-const { facebookInit, googleInit } = require('@authentication')
+const { auth0 } = require('@authentication')
+const {
+  errorHandlerMiddleware,
+} = require('@middlewares/ErrorHandlerMiddleware')
+const bodyParser = require('body-parser')
 
 const db = getConnection()
 db.on('error', console.error.bind(console, 'MongoDB connection error:'))
 
 const indexRouter = require('@routes/index')
-const usersRouter = require('@routes/users')
-const authRouter = require('@routes/auth')
+const apiRouters = require('@routes/apiRoutes')
 
 const app = express()
 
-app.use(
-  session({
-    secret: process.env.SESSION_SECRET,
-    resave: true,
-    saveUninitialized: true,
-  }),
-)
+app.use(bodyParser.urlencoded({ extended: false }))
+app.use(bodyParser.json())
+
+const sessionOptions = {
+  secret: process.env.SESSION_SECRET,
+  cookie: {},
+  resave: false,
+  saveUninitialized: false,
+}
+
+if ('PROD' === process.env.ENVIROMENT) {
+  sessionOptions.cookie.secure = true
+}
+
+app.use(session(sessionOptions))
 
 app.use(cors())
 
-facebookInit(app)
-googleInit()
+auth0(app)
 
 app.use('/', indexRouter)
-app.use('/users', usersRouter)
-app.use('/auth', authRouter)
+app.use('/api', apiRouters)
 
-app.use(logger('dev'))
+errorHandlerMiddleware(app)
+
+app.use(morgan('dev'))
 app.use(express.json())
 app.use(express.urlencoded({ extended: false }))
 app.use(cookieParser())
