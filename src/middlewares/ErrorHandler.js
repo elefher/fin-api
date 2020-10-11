@@ -1,6 +1,6 @@
 const Boom = require('@hapi/boom')
 
-const errorHandlerMiddleware = app => {
+const errorHandler = app => {
   app.use((err, req, res, next) => {
     return Boom.isBoom(err)
       ? res.status(err.output.statusCode).json(err.output.payload)
@@ -8,4 +8,4 @@ const errorHandlerMiddleware = app => {
   })
 }
 
-module.exports = { errorHandlerMiddleware }
+module.exports = { errorHandler }

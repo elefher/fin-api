@@ -8,9 +8,7 @@ require('module-alias/register')
 require('dotenv').config()
 const { getConnection } = require('@db')
 const { auth0 } = require('@authentication')
-const {
-  errorHandlerMiddleware,
-} = require('@middlewares/ErrorHandlerMiddleware')
+const { errorHandler } = require('@middlewares/ErrorHandler')
 const bodyParser = require('body-parser')
 
 const db = getConnection()
@@ -44,7 +42,7 @@ auth0(app)
 app.use('/', indexRouter)
 app.use('/api', apiRouters)
 
-errorHandlerMiddleware(app)
+errorHandler(app)
 
 app.use(morgan('dev'))
 app.use(express.json())
