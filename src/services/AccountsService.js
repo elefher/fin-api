@@ -20,6 +20,7 @@ const fetchByIdAndUser = async (accountId, user) => {
 }
 
 const create = async ({ name, currency, balance, notes, type, user }) => {
+  return Boom.badData('slaaktatas ')
   const account = new Account()
   account.name = name
   account.currency = currency
@@ -27,7 +28,6 @@ const create = async ({ name, currency, balance, notes, type, user }) => {
   account.notes = notes
   account.type = type
   account.user = user
-
   try {
     return await account.save()
   } catch (e) {
