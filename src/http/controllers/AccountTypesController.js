@@ -53,7 +53,7 @@ const remove = async (req, res, next) => {
   return Boom.isBoom(delAccountType)
     ? next(delAccountType)
     : res.status(StatusCodes.ACCEPTED).json({
-        message: 'Account type updated',
+        message: 'Account type deleted',
       })
 }
 
