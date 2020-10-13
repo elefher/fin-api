@@ -1,7 +1,6 @@
 const AccountTypes = require('@http/controllers/AccountTypesController')
 const AccountTypeService = require('@services/AccountTypesService')
 const httpMocks = require('node-mocks-http')
-const newAccountType = require('../../mock-data/newAccountType.json')
 const { StatusCodes } = require('http-status-codes')
 const Boom = require('@hapi/boom')
 
@@ -19,6 +18,7 @@ let req, res, next
 
 beforeEach(() => {
   req = httpMocks.createRequest()
+  req.body = {}
   res = httpMocks.createResponse()
   next = jest.fn().mockImplementation(err => {
     return Boom.isBoom(err)
@@ -33,13 +33,11 @@ describe('Create account types', () => {
   })
 
   it('should call AccountTypeService.create', async () => {
-    req.body = newAccountType
     await AccountTypes.create(req, res, next)
-    expect(AccountTypeService.create).toBeCalledWith(newAccountType)
+    expect(AccountTypeService.create).toBeCalledWith(req.body)
   })
 
   it('should return CREATED response code', async () => {
-    req.body = newAccountType
     await AccountTypes.create(req, res, next)
     expect(res._isEndCalled()).toBeTruthy()
     expect(res.statusCode).toBe(StatusCodes.CREATED)
@@ -64,7 +62,6 @@ describe('Update account types', () => {
 
   it('should call AccountTypeService.update', async () => {
     req.params.id = 1
-    req.body = {}
     await AccountTypes.update(req, res, next)
     expect(AccountTypeService.update).toBeCalledWith(req.params.id, req.body)
   })
