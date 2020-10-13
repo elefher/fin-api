@@ -18,6 +18,9 @@ services:
     image: fin-api
     container_name: 'fin-api'
     build: .
+    volumes:
+      - .:/usr/src/app
+      - /usr/src/app/node_modules
     networks:
       - backend
     ports:
