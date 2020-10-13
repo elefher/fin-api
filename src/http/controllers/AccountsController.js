@@ -48,7 +48,7 @@ const update = async (req, res, next) => {
 }
 
 const remove = async (req, res, next) => {
-  const delAccount = await AccountsService.deleteById(
+  const delAccount = await AccountsService.deleteByIdAndUser(
     req.params.id,
     req.body.user,
   )
