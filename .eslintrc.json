@@ -20,6 +20,7 @@
     "node/prefer-promises/dns": "error",
     "node/prefer-promises/fs": "error",
     "node/no-missing-require": "off",
-    "no-undef": "off"
+    "no-undef": "off",
+    "no-unused-vars": "off"
   }
 }
