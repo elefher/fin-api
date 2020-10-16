@@ -52,10 +52,6 @@ describe('Testing AccountsController', () => {
   })
 
   describe('Update account types', () => {
-    it('should have an update function', () => {
-      expect(typeof Accounts.update).toBe('function')
-    })
-
     it('should call AccountService.update', async () => {
       req.params.id = 1
       await Accounts.update(req, res, next)
@@ -81,10 +77,6 @@ describe('Testing AccountsController', () => {
   })
 
   describe('Remove account', () => {
-    it('should have a remove function', () => {
-      expect(typeof Accounts.remove).toBe('function')
-    })
-
     it('should call AccountsService.deleteByIdAndUser', async () => {
       req.params.id = 1
       await Accounts.remove(req, res, next)
@@ -113,10 +105,6 @@ describe('Testing AccountsController', () => {
   })
 
   describe('Fetch all account types', () => {
-    it('should have a list function', () => {
-      expect(typeof Accounts.list).toBe('function')
-    })
-
     it('should call AccountService.fetchAllByUser', async () => {
       await Accounts.list(req, res, next)
       expect(AccountsService.fetchAllByUser).toBeCalled()
@@ -141,10 +129,6 @@ describe('Testing AccountsController', () => {
   })
 
   describe('View account type', () => {
-    it('should have a view function', () => {
-      expect(typeof Accounts.view).toBe('function')
-    })
-
     it('should call AccountService.fetchByIdAndUser', async () => {
       req.params.id = 1
       req.body.user = 'userid123'

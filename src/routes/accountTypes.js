@@ -2,15 +2,24 @@ const express = require('express')
 const router = express.Router()
 const AccountTypes = require('@http/controllers/AccountTypesController')
 const { accountTypesRules, validate } = require('@middlewares/RequestValidator')
+const { isLoggedIn } = require('@middlewares/Authentication')
 
-router.get('/', AccountTypes.list)
+router.get('/', [isLoggedIn], AccountTypes.list)
 
-router.get('/:id', AccountTypes.view)
+router.get('/:id', [isLoggedIn], AccountTypes.view)
 
-router.post('/', [accountTypesRules(), validate], AccountTypes.create)
+router.post(
+  '/',
+  [isLoggedIn, accountTypesRules(), validate],
+  AccountTypes.create,
+)
 
-router.put('/:id', [accountTypesRules(), validate], AccountTypes.update)
+router.put(
+  '/:id',
+  [isLoggedIn, accountTypesRules(), validate],
+  AccountTypes.update,
+)
 
-router.delete('/:id', AccountTypes.remove)
+router.delete('/:id', [isLoggedIn], AccountTypes.remove)
 
 module.exports = router
